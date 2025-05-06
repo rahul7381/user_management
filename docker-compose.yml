@@ -55,7 +55,6 @@ services:
         - ./minio_data:/data
       networks:
         - app-network
-
   nginx:
     image: nginx:latest
     ports:
