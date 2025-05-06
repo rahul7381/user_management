@@ -5,6 +5,7 @@ from app.dependencies import get_settings
 from app.models.user_model import User, UserRole
 from app.services.user_service import UserService
 from app.utils.nickname_gen import generate_nickname
+from app.utils.security import hash_password
 
 pytestmark = pytest.mark.asyncio
 
@@ -64,14 +65,28 @@ async def test_get_by_email_user_does_not_exist(db_session):
 # Test updating a user with valid data
 async def test_update_user_valid_data(db_session, user):
     new_email = "updated_email@example.com"
-    updated_user = await UserService.update(db_session, user.id, {"email": new_email})
+    update_data = {"email": new_email, "nickname": user.nickname or generate_nickname()}
+    updated_user = await UserService.update(db_session, user.id, update_data)
     assert updated_user is not None
     assert updated_user.email == new_email
 
 # Test updating a user with invalid data
 async def test_update_user_invalid_data(db_session, user):
-    updated_user = await UserService.update(db_session, user.id, {"email": "invalidemail"})
-    assert updated_user is None
+    new_email = "invalid_email@example.com"
+    # Add another user with the same nickname to create a conflict
+    conflicting_user = User(
+        nickname="conflicting_nickname",
+        email="existing_user@example.com",
+        hashed_password=hash_password("Secure*1234!"),
+        role=UserRole.AUTHENTICATED,
+    )
+    db_session.add(conflicting_user)
+    await db_session.commit()
+
+    # Attempt to update with conflicting nickname
+    updated_user = await UserService.update(db_session, user.id, {"email": new_email, "nickname": conflicting_user.nickname})
+    assert updated_user is None, "User update should fail due to duplicate nickname"
+
 
 # Test deleting a user who exists
 async def test_delete_user_exists(db_session, user):

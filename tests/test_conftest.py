@@ -62,3 +62,18 @@ async def test_update_professional_status(db_session, verified_user):
     updated_user = result.scalars().first()
     assert updated_user.is_professional
     assert updated_user.professional_status_updated_at is not None
+
+@pytest.fixture
+async def test_user(db_session):
+    """Fixture to create and return a test user."""
+    user = User(
+        id=str(uuid.uuid4()),
+        email="test_user@example.com",
+        nickname="test_user",
+        hashed_password=hash_password("MySuperPassword$1234"),
+        role="AUTHENTICATED"
+    )
+    db_session.add(user)
+    await db_session.commit()
+    await db_session.refresh(user)
+    return user
