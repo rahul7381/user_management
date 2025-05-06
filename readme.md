@@ -1,73 +1,74 @@
-User Management 📋
+# User Management 📋
 
-Project Overview
+## Project Overview
 
 The User Management System is a robust platform for managing user profiles, role assignments, and secure functionalities like password validation and image uploads. This project includes critical bug fixes, enhancements, and comprehensive testing to ensure a seamless user experience.
 
-Project Submissions 🌐
-Project Implementation and testing: 
-Click here ---> https://github.com/rahul7381/user_management/blob/main/Documentation/Output%20images.md
-Docker Deployment:
-![Docker image](image.png)
+## Project Submissions 🌐
+
+**Project Implementation and Testing**  
+Click here ---> [Output Images & Docs](https://github.com/rahul7381/user_management/blob/main/Documentation/Output%20images.md)
+
+**Docker Deployment**  
+![Docker image](image.png)  
 ![DockerHub image](image-1.png)
 
-Features Implemented
-🚀 Enhanced Profile Picture Upload using MinIO
-Implemented image upload functionality with MinIO as the object storage system.
-Features include:
-File format validation (.jpg, .jpeg, .png).
-Image resizing for optimization.
-Secure storage and retrieval of image URLs.
+## Features Implemented
 
-🚀features profile picture upload
-By enabling users to upload and save their profile photographs using Minio, a distributed object storage system, you may improve the functionality of managing user profiles.
-Feature Link: https://github.com/rahul7381/user_management/issues/12
-🚀 features minio client code integration
-MinIO server is running, integrate it with application and perform upload files operation.
-Feature Link: https://github.com/rahul7381/user_management/issues/14
+### 🚀 Enhanced Profile Picture Upload using MinIO
+- Implemented image upload functionality with MinIO as the object storage system.
+- File format validation: `.jpg`, `.jpeg`, `.png`.
+- Image resizing for optimization.
+- Secure storage and retrieval of image URLs.
 
-Bugs Fixed
-🐞 Fix _dockerfile_ allow build_ libc-bin _version permit
---allow-downgrades: Makes sure the package management allows libc-bin to be downgraded to the designated version (2.36-9+deb12u7).
-To enable the build, the Docker file was updated.
-Resolved Application Errors: To guarantee seamless application operation, problems brought on by mismatched library versions were fixed.
-Issue Link: https://github.com/rahul7381/user_management/issues/1
-🐞 user-id is None is fixed
-Select Verify. The email was received in the mail.
-When there is no user ID in the URL, an error occurs.
-Issue Link: https://github.com/rahul7381/user_management/issues/3
-🐞 User-ID is None Upon Clicking Verify Email
-Verification failed when the user-ID was missing.
-Issue Link: https://github.com/rahul7381/user_management/issues/5
-🐞 Password Strength Not Validated
-Issue: Weak passwords were accepted during user registration.
-Issue Link: https://github.com/rahul7381/user_management/issues/8
-🐞 Multiple Email and Nicknames Causing Test Failures
-When running test cases for user creation and update, issues arise due to duplicate email and nickname checks. The current implementation does not exclude the user being updated during validation, causing conflicts when the user tries to update their own email or nickname without changing them.
-Issue Link: https://github.com/rahul7381/user_management/issues/10
+### 🚀 Profile Picture Upload Feature
+By enabling users to upload and save their profile photographs using MinIO, you improve the functionality of managing user profiles.  
+**Feature Link:** [#12](https://github.com/rahul7381/user_management/issues/12)
 
-Testing and Quality Assurance 🧪
+### 🚀 MinIO Client Code Integration
+Integrated MinIO server with the application to perform file upload operations.  
+**Feature Link:** [#14](https://github.com/rahul7381/user_management/issues/14)
 
-Implemented unit tests to validate:
-1.Upload Profile Picture with Bytes
-2.Upload Profile Picture with File‑Like Object
-3.Upload Profile Picture Unsupported Extension
-4.Get Profile Picture URL
-5.Successful email send
-6.Authentication failure
-7.Recipient refused
-8.Generic exception on connection
-9.Missing template read
-10.Email-style inlining on HTML tags
-11.Header + body + footer combination and Markdown rendering
-12.Multiple context-field interpolation
-13.Markdown list handling and special characters
-14.Header–body–footer ordering
+## Bugs Fixed
 
-Improved test coverage to handle edge cases and ensure reliability.
-Test Link:https://github.com/rahul7381/user_management/issues/19
-Coverage above 90% : ![Test Coverage](image-2.png)
+### 🐞 Dockerfile `libc-bin` Downgrade
+- Added `--allow-downgrades` for `libc-bin=2.36-9+deb12u7` to the Dockerfile.
+- Resolved mismatched library‑version errors in the build.  
+**Issue Link:** [#1](https://github.com/rahul7381/user_management/issues/1)
 
+### 🐞 `user-id` None on Email Verify
+- Fixed missing user‑ID error when clicking verify.  
+**Issue Link:** [#3](https://github.com/rahul7381/user_management/issues/3)
+
+### 🐞 Password Strength Validation
+- Enforced strong‑password checks during registration.  
+**Issue Link:** [#8](https://github.com/rahul7381/user_management/issues/8)
+
+### 🐞 Duplicate Email/Nickname Validation
+- Excluded the current user from duplicate‑check during updates.  
+**Issue Link:** [#10](https://github.com/rahul7381/user_management/issues/10)
+
+## Testing and Quality Assurance 🧪
+
+Implemented unit tests to validate:  
+1. Upload Profile Picture with Bytes  
+2. Upload Profile Picture with File‑Like Object  
+3. Upload Profile Picture Unsupported Extension  
+4. Get Profile Picture URL  
+5. Successful email send  
+6. Authentication failure  
+7. Recipient refused  
+8. Generic exception on connection  
+9. Missing template read  
+10. Email-style inlining on HTML tags  
+11. Header + body + footer combination and Markdown rendering  
+12. Multiple context-field interpolation  
+13. Markdown list handling and special characters  
+14. Header–body–footer ordering  
+
+Improved test coverage to handle edge cases and ensure reliability.  
+**Test Link:** [#19](https://github.com/rahul7381/user_management/issues/19)  
+![Test Coverage](image-2.png)
 
 Project Setup ⚙️
 Clone the Repository
