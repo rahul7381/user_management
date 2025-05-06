@@ -54,3 +54,4 @@ def get_profile_picture_url(file_name):
         str: Presigned URL for the file.
     """
     return minio_client.get_presigned_url('GET', settings.MINIO_BUCKET_NAME, file_name)
+
