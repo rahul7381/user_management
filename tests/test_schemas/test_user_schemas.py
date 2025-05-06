@@ -108,3 +108,26 @@ def test_user_base_url_invalid(url, user_base_data):
     user_base_data["profile_picture_url"] = url
     with pytest.raises(ValidationError):
         UserBase(**user_base_data)
+
+@pytest.mark.parametrize("password, expected_error", [
+    ("weakpass", "Password must include at least one uppercase letter."),
+    ("SHORT1!", "Password must include at least one lowercase letter."),
+    ("nouppercase123!", "Password must include at least one uppercase letter."),
+    ("NOLOWERCASE123!", "Password must include at least one lowercase letter."),
+    ("NoNumber!", "Password must include at least one number."),
+    ("NoSpecialChar123", "Password must include at least one special character"),
+])
+def test_user_create_password_invalid(password, expected_error, user_create_data):
+    user_create_data["password"] = password
+    with pytest.raises(ValidationError) as exc_info:
+        UserCreate(**user_create_data)
+    assert expected_error in str(exc_info.value)
+
+@pytest.fixture
+async def users_with_same_role_50_users(db_session, unique_user_data):
+    users = [
+        unique_user_data for _ in range(50)  # Ensures unique data for all users
+    ]
+    db_session.add_all(users)
+    await db_session.commit()
+    return users
